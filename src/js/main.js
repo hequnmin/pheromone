@@ -39,7 +39,9 @@ app.whenReady().then(() => {
     ipcMain.on('set-title', handleSetTitle);
 
     // 使用 ipcMain.on API 设置一个 IPC 监听器，接收渲染器进程ipcRenderer.send发送的消息
-    ipcMain.on('service-start', handleServiceStart);
+    //ipcMain.on('service-start', onServiceStart);    //单向
+    ipcMain.handle('service-start', handleServiceStart);    //双向
+    ipcMain.handle('service-stop', handleServiceStop);
 
     ipcMain.on('service-message', (_event, value) => {
         console.log("message.");
@@ -86,7 +88,7 @@ function handleSetTitle (event, title) {
     win.setTitle(title)
 }
 
-function handleServiceStart(event, args) {
+function onServiceStart(event, args) {
 
     const { host } = args;
     const { port } = args;
@@ -99,4 +101,28 @@ function handleServiceStart(event, args) {
     win.webContents.send('service-message', msg);
 }
 
+async function handleServiceStart(event, args) {
 
+    const { host } = args;
+    const { port } = args;
+
+    const server = new dgram.createSocket('udp4');
+
+    // 绑定服务器到指定的地址和端口
+    server.bind(port, host);
+    const msg = `绑定服务器：${host}:${port}`;
+    console.log(msg);
+
+    return true;
+}
+
+async function handleServiceStop(event, args) {
+    const { host } = args;
+    const { port } = args;
+
+    server.close();
+    const msg = `关闭服务器：${host}:${port}`;
+    console.log(msg);
+
+    return true;
+}

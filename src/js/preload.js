@@ -22,7 +22,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
 //使用 ipcRenderer.send API 发送消息，然后使用 ipcMain.on API 接收
 contextBridge.exposeInMainWorld('serviceAPI', {
-    start: (args) => ipcRenderer.send('service-start', args),   //渲染器进程到主进程（单向）
+    //start: (args) => ipcRenderer.send('service-start', args),   //渲染器进程到主进程（单向）
+    start: (args) => ipcRenderer.invoke('service-start', args),   //渲染器进程到主进程（双向）
+    stop: (args) => ipcRenderer.invoke('service-stop', args),
     message: (callback) => ipcRenderer.on('service-message', callback)
+
 })
 
