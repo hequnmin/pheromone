@@ -1,0 +1,14 @@
+
+html {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #1e1e1e;
+    color: #ffffff;
+}
+
+#message {
+    color: red;
+}
+

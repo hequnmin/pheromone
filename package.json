@@ -1,0 +1,21 @@
+{
+  "name": "pheromone",
+  "version": "1.0.0",
+  "description": "A simple UDP service.",
+  "main": "./src/js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "Min",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^24.1.2",
+    "electron-builder": "^23.6.0"
+  },
+  "dependencies": {
+    "dgram": "^1.0.1"
+  }
+}

@@ -1,0 +1,10 @@
+(function() {
+    
+    class Service
+    {
+        constructor() {
+
+        }
+
+    }
+})();
